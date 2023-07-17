@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Bot</title>
+</head>
+<body>
+    <h1>Chat Bot</h1>
+    <div>
+        <label for="message">Enter your message:</label>
+        <input type="text" id="message" />
+        <button id="submitButton">Submit</button>
+    </div>
+    <div id="response"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#submitButton').click(function() {
+                var message = $('#message').val();
+                generateResponse(message);
+            });
+        });
+
+        function generateResponse(message) {
+            var options = {
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'user',
+                        content: message
+                    }
+                ],
+                max_tokens: 3500,
+                temperature: 0.2
+            };
+
+            var content = JSON.stringify(options);
+
+            $.ajax({
+                url: 'https://api.openai.com/v1/chat/completions',
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer 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',
+                    'Content-Type': 'application/json'
+                },
+                data: {'data':data},
+,
+                success: function(response) {
+                    var result = response.choices[0].message.content;
+                    $('#response').text('Chat Bot: ' + result);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('Error:', errorThrown);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

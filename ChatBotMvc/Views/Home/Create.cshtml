@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot HTML Page</title>
+    <style>
+        /* Add your CSS styles here */
+        /* Absolute Center Spinner */
+        #spin {
+            position: fixed;
+            z-index: 999;
+            overflow: show;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbot-container">
+        <div id="chat-log">
+            <!-- Chat log will be displayed here -->
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="message-input" placeholder="Type your message...">
+            <div class="input-group-append">
+                <button id="send-button" class="btn btn-outline-primary" type="button">Search</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="spinner-border text-primary" id="spin" role="status" style="display:none">
+    </div>
+    <pre style="white-space: pre-wrap;" id="output">  </pre>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('button').click(function () {
+                $('#spin').show();
+
+                var data = $('#message-input').val();
+
+                $.ajax({
+                    url: '/Home/Get',
+                    type: 'POST',
+                    data: { 'input': data },
+                    success: function (response) {
+                        $('#spin').hide();
+                        // Handle the response from the controller
+                        var outputElement = document.getElementById("output");
+                        // outputElement.innerHTML = "<pre style="white-space: pre-wrap;>" + response + "</pre>";
+                        $('#output').html(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle the error
+                        $('#output').html(error);
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
