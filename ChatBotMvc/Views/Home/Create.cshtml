@@ -21,22 +21,41 @@
     </style>
 </head>
 <body>
+    <span id="countvalue" hidden>@ViewBag.count</span>
     <div id="chatbot-container">
         <div id="chat-log">
             <!-- Chat log will be displayed here -->
+            <form asp-action="UploadFile" asp-controller="Home" enctype="multipart/form-data">
+                <input type="file" name="fileUpload" id="fileUpload" />
+                <input type="submit" value="Upload" />
+            </form>
+            <div>
+            <h1>List of Files</h1>
+                <select id="fileDropdown">
+                    <option value="">Select a file</option>
+                    @foreach (var fileName in ViewBag.FileNames)
+                    {
+                        <option value="@fileName">@fileName</option>
+                    }
+                </select>
+            </div>
         </div>
+        <pre id="fileDetails" style="white-space: pre-wrap;"></pre>
+        @*<pre> @ViewBag.output</pre>*@
+        <pre style="white-space: pre-wrap;" id="output"></pre>
+    </div>
+    <div class="spinner-border text-primary" id="spin" role="status" style="display:none">
+    </div>
+    
+   
+    <div class="bottom-section">
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="message-input" placeholder="Type your message...">
             <div class="input-group-append">
                 <button id="send-button" class="btn btn-outline-primary" type="button">Search</button>
             </div>
         </div>
-
-    </div>
-    <div class="spinner-border text-primary" id="spin" role="status" style="display:none">
-    </div>
-    <pre style="white-space: pre-wrap;" id="output">  </pre>
-
+        </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script type="text/javascript">
@@ -44,13 +63,33 @@
             $('button').click(function () {
                 $('#spin').show();
 
+
+
+              
+
                 var data = $('#message-input').val();
 
                 $.ajax({
                     url: '/Home/Get',
                     type: 'POST',
-                    data: { 'input': data },
+                        data: { 'input': data },
                     success: function (response) {
+                        var hiddenSpan = document.getElementById('countvalue');
+
+                        // Access the value using the innerText property
+                        var countValue = hiddenSpan.innerText;
+                        var i = countValue; // You can set the value of 'i' here using C# if required.
+
+                        // Function to hide the 'bottom-section' div when i = 1.
+                        function hideBottomSection() {
+                            var bottomSection = document.getElementById('bottom-section');
+                            if (i === 2) {
+                                bottomSection.style.display = 'none';
+                            }
+                        }
+
+                        // Call the function on page load or whenever 'i' is updated.
+                        document.addEventListener('DOMContentLoaded', hideBottomSection);
                         $('#spin').hide();
                         // Handle the response from the controller
                         var outputElement = document.getElementById("output");
@@ -67,5 +106,30 @@
         });
 
     </script>
+    <script>
+        // Attach an event listener to the dropdown change event
+        $('#fileDropdown').on('change', function () {
+            var selectedFileName = $(this).val();
+
+            if (selectedFileName !== '') {
+                // Make an AJAX call to the server to get file details
+                $.ajax({
+                    type: 'GET',
+                    url: '/Home/Create',
+                    data: { file: selectedFileName },
+                    success: function (data) {
+                        $('#fileDetails').html(data);
+                    },
+                    error: function () {
+                        $('#fileDetails').html('Error retrieving file details.');
+                    }
+                });
+            } else {
+                // Clear the target div if no file is selected
+                $('#fileDetails').empty();
+            }
+        });
+    </script>
+    
 </body>
 </html>

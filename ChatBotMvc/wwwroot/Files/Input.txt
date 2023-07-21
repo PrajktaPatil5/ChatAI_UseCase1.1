@@ -1,0 +1,13 @@
+Sample LIC Customers Data:
+
+LIC-ID    Full Name        Gender    Phone Number    Address                           Monthly Policy Amount
+1        John Smith        Male    123-456-7890    123 Main St, Anytown, USA            $100
+2        Jane Doe          Female    987-654-3210    456 Elm St, Otherville, USA        $150
+3        David Johnson     Male    555-123-4567    789 Oak Ave, Anothercity, USA            $200
+4        Sarah Williams    Female    789-456-1230    321 Pine St, Townsville, USA            $125
+5        Robert Davis      Male    444-555-6666    567 Maple Dr, Villageville, USA            $175
+6        Emily Wilson      Female    222-333-4444    890 Cherry Ln, Suburbia, USA            $180
+7        Michael Anderson  Male    777-888-9999    432 Birch Rd, Countryside, USA            $90
+8        Olivia Thompson   Female    111-222-3333    765 Cedar Ave, Ruralville, USA       $120
+9        Christopher Lee   Male    666-777-8888    098 Olive Ct, Outskirts, USA            $95
+10       Sophia Brown      Female    333-444-5555    987 Pineapple Blvd, Coastal City, USA    $250

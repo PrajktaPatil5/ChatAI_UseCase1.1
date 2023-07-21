@@ -1,0 +1,27 @@
+﻿ Function 1:
+ Input : 
+give female details
+ Result : 
+Female details from the given data:
+
+LIC-ID   Full Name       Gender  Phone Number    Address                            Monthly Policy Amount
+2        Jane Doe        Female  987-654-3210    456 Elm St, Otherville, USA        $150
+4        Sarah Williams  Female  789-456-1230    321 Pine St, Townsville, USA       $125
+6        Emily Wilson    Female  222-333-4444    890 Cherry Ln, Suburbia, USA       $180
+8        Olivia Thompson Female  111-222-3333    765 Cedar Ave, Ruralville, USA     $120
+10       Sophia Brown    Female  333-444-5555    987 Pineapple Blvd, Coastal City, USA $250
+ Function 2:
+ Input : 
+sum of all female customer Monthly Policy Amount with explanation
+ Result : 
+The sum of all female customer Monthly Policy Amount is $825.
+
+Explanation:
+- Jane Doe's Monthly Policy Amount is $150.
+- Sarah Williams's Monthly Policy Amount is $125.
+- Emily Wilson's Monthly Policy Amount is $180.
+- Olivia Thompson's Monthly Policy Amount is $120.
+- Sophia Brown's Monthly Policy Amount is $250.
+
+To calculate the sum, we add all the Monthly Policy Amounts together:
+$150 + $125 + $180 + $120 + $250 = $825.
